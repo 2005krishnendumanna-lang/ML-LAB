@@ -1,0 +1,44 @@
+import csv
+import random
+import matplotlib.pyplot as plt
+
+filename = r"C:\Users\STUDENT\Documents\student_marks.csv"
+
+data = []
+
+for roll_no in range(1, 101):
+    physics = random.randint(0, 100)
+    chemistry = random.randint(0, 100)
+    maths = random.randint(0, 100)
+
+    data.append([roll_no, physics, chemistry, maths])
+
+# Create CSV
+with open(filename, "w", newline="", encoding="utf-8") as file:
+    writer = csv.writer(file)
+    writer.writerow(["Roll No", "Physics No", "Chemistry No", "Math No"])
+    writer.writerows(data)
+
+print("CSV created successfully!")
+print("Location:", filename)
+
+# Graph
+roll_numbers = [row[0] for row in data]
+physics = [row[1] for row in data]
+chemistry = [row[2] for row in data]
+maths = [row[3] for row in data]
+
+plt.figure(figsize=(14, 7))
+
+plt.plot(roll_numbers, physics, label="Physics")
+plt.plot(roll_numbers, chemistry, label="Chemistry")
+plt.plot(roll_numbers, maths, label="Maths")
+
+plt.xlabel("Roll Number")
+plt.ylabel("Marks")
+plt.title("Physics, Chemistry and Maths Marks")
+plt.legend()
+plt.grid(True)
+plt.xticks(range(0, 101, 10))
+
+plt.show()
