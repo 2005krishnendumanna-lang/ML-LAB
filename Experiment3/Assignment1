@@ -1,0 +1,23 @@
+import pandas as pd
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+
+data = {
+    "Age": [20, 21, None, 23, 24],
+    "Salary": [25000, 30000, 28000, None, 40000],
+    "Department": ["IT", "CSE", "IT", "ECE", "CSE"],
+    "Experience": [1, 2, None, 3, 4]
+}
+
+df = pd.DataFrame(data)
+
+df[["Age", "Salary", "Experience"]] = SimpleImputer(
+    strategy="median"
+).fit_transform(df[["Age", "Salary", "Experience"]])
+
+scaler = StandardScaler()
+df[["Age", "Salary", "Experience"]] = scaler.fit_transform(
+    df[["Age", "Salary", "Experience"]]
+)
+
+print(df)
